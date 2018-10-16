@@ -1,0 +1,455 @@
+<!--修改项目的第三页 修改文件-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style type="text/css">
+        .headunder{
+            width:100%;
+            height: 50px;
+            background-color: darkgreen;
+            margin: 0 0 0 0;
+            clear: both;
+        }
+        .headunder_wrap { width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8}
+
+        a:hover{
+            color: black;
+        }
+        .body1{
+            margin: 0px;
+            min-height: 1000px;
+            margin-bottom: 0px;
+            padding: 0px}
+        #liid a:hover {
+            background-color: rgb(26, 93, 150);
+            cursor: pointer;
+        }
+        #ul a{
+            color:white;
+            background-color: rgba(26, 93, 150, 0);cursor: pointer;
+        }
+        #ul a:hover{
+            color:white;
+            background-color: rgb(26, 93, 150);cursor: pointer;
+        }
+        #ul2 a{
+            color:#337ab7;
+            background-color: white;cursor: pointer;
+        }
+        #ul2 a:hover{
+            color:#054984;
+            background-color: white;cursor: pointer;
+        }
+
+    </style>
+    <style type="text/css">
+        p i {
+            /*color: #03a678;*/
+            color:green;
+        }
+
+        label p {
+            display: inline-block;
+            width: 240px;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #555;
+            vertical-align: middle;
+            background-color: #FFFFFF;
+            background-image: none;
+            border: 1px solid green;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+        }
+    </style>
+    <style type="text/css">
+        .body1{
+            margin: 0px;
+            min-height: 1000px;
+            margin-bottom: 0px;
+            padding: 0px}
+    </style>
+    <style>
+        .divcss5{text-align:center}
+        .caption{text-align:center}
+    </style>
+    <style>
+        .divcss5-left{float: left  ;  }
+    </style>
+    <style type="text/css">
+        .foot{
+            width:100%;
+            height: 90px;
+            background: #8c8c8c;
+            margin: 0 10px 20px 0;
+            clear: both;
+        }
+
+        .footer_wrap { width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8}
+    </style>
+    <style type="text/css">
+        .header{
+            width:100%;
+            height: 400px;
+            background:url("img/green.jpg");
+            margin: 0 0 20px 0;
+            margn:0;
+            padding:0;
+            clear: both;
+        }
+        #liid a:hover {
+            background-color: rgb(26, 93, 150);
+            cursor: pointer;
+        }
+        #ul a{
+            color:white;
+            background-color: rgba(26, 93, 150, 0);cursor: pointer;
+        }
+        #ul a:hover{
+            color:white;
+            background-color: rgb(26, 93, 150);cursor: pointer;
+        }
+        #ul2 a{
+            color:#337ab7;
+            background-color: white;cursor: pointer;
+        }
+        #ul2 a:hover{
+            color:#054984;
+            background-color: white;cursor: pointer;
+        }
+        .header_wrap { width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8}
+    </style>
+    <style type="text/css">
+        .headunder{
+            width:100%;
+            height: 50px;
+            background-color: darkgreen;
+            margin: 0 0 0 0;
+            clear: both;
+        }
+
+        .headunder_wrap { width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8}
+
+        a:hover{
+            color: black;
+        }
+    </style>
+    <style type="text/css">
+        /*for NAV*/
+
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+        .content {
+            width: 100px;
+        }
+
+
+        #demo-list a {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
+        }
+    </style>
+    <meta charset="UTF-8"/>
+    <title>项目文件上传</title>
+    <!-- CSS -->
+    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{css/infostyle.css}" rel="stylesheet" type='text/css' media="all" />
+    <link th:href="@{css/navbar-fixed-top.css}" rel="stylesheet" />
+    <link th:href="@{/css/fileinput.css}" media="all" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/themes/explorer/theme.css}" media="all" rel="stylesheet" type="text/css"/>
+</head>
+
+<body class="body1" >
+<div class="headunder">
+    <div class="headunder_wrap">
+        <div class="navbar-form navbar-left">
+            <a href="/home" style="color: white;font-size: 20px;text-decoration : none ">能源项目评估管理平台</a>
+        </div>
+        <div class="nav navbar-nav navbar-right" >
+            <ul class="nav navbar-nav">
+                <li id="ul" class="dropdown">
+
+                    <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >账号管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li id="ul2">
+                            <a href="/passwordmanage">修改密码</a>
+                            <a th:if="${type==1}" href="/showusers">用户管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown" >
+                    <button onclick="logout()" th:unless="false" class="btn btn-danger navbar-btn" type="button">退出</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h1 class="divcss5" style="text-align:center;font-size: xx-large">项目修改</h1>
+<div class="container">
+<div class="row">
+    <div class="col-md-1" style="display:inline"></div>
+    <div class="col-md-10" style="display:inline">
+        <!--导航栏-->
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">项目修改</a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#" onclick="toone()" style="font-size: large;">修改基本信息</a></li>
+                <li><a href="#" onclick="totwo()" style="font-size: large;">修改项目数据</a></li>
+                <li class="active"><a href="#" onclick="tothree()" style="font-size: large;">修改相关文件</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+        <!--搜索需要的值-->
+        <div style="display: none">
+        <p><input id="name" th:name="name" th:value="${name}"/></p>
+        <p><input id="fff" th:name="fff"/></p>
+        </div>
+        <!--搜索的文件目录-->
+        <div class="form-group">
+                <div class="form-input dob">
+                    <div class="col-md-2 column">
+                        <label class="control-label">请选择文件目录</label>
+                    </div>
+                    <div class="col-md-3 column">
+                    <span class="form-sub-label">
+                        <select id="one" style="font-size:15px;width:200px;">
+                        <option>请选择一级目录</option>
+                        </select>
+                    </span>
+                    </div>
+                    <div class="col-md-3 column">
+                    <span class="form-sub-label">
+                        <select id="two" style="font-size:15px;width:200px;">
+                            <option>请选择二级目录</option>
+                        </select>
+                     </span>
+                    </div>
+                    <div class="col-md-3 column">
+                    <span class="form-sub-label">
+                        <select id="three" onchange="getSelectval('three')" style="font-size:15px;width:200px;">
+                            <option>请选择三级目录</option>
+                        </select>
+                     </span>
+                    </div>
+                    <div class="col-md-1 column">
+                        <input type="submit" class="btn btn-success" value="搜索" onclick=" revisefile1()"/>
+                    </div>
+                </div>
+            </div>
+        <br/>
+
+        <!--显示文件-->
+        <div class="panel panel-success biaoge biaoge_table" id="titleTwo1">
+                <div class="panel-heading">
+                    <h4 class="panel-title divcss5"> <a>相关文件</a> </h4>
+                </div>
+                <div class="panel-body">
+                    <div id="collapseTwo1" class="panel-collapse collapse in">
+                        <table class="table table-striped" id="table1">
+                            <thead>
+                            <tr>
+                                <th>文件名</th>
+                                <th>文件描述</th>
+                                <th>下载</th>
+                                <th>审核状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="projectbody1">
+                            <tr id="tr_1">
+                                <td><p id="m1" class="divcss5-left"></p></td>
+                                <td><p id="z1" class="divcss5-left"></p></td>
+                                <td><a id="n1" class="divcss5-left"></a></td>
+                                <td><p id="x1" class="divcss5-left"></p></td>
+                                <td><a id="v1" class="divcss5-left"  onclick="deleteRow(this)" ></a></td>
+                            </tr>
+
+                            <tr id="tr_2">
+                                <td><p id="m2" class="divcss5-left"></p></td>
+                                <td><p id="z2" class="divcss5-left"></p></td>
+                                <td><a id="n2" class="divcss5-left"></a></td>
+                                <td><p id="x2" class="divcss5-left"></p></td>
+                                <td><a id="v2" class="divcss5-left" onclick="deleteRow(this)"></a></td>
+                            </tr>
+
+                            <tr id="tr_3">
+                                <td><p id="m3" class="divcss5-left"></p></td>
+                                <td><p id="z3" class="divcss5-left"></p></td>
+                                <td><a id="n3" class="divcss5-left"></a></td>
+                                <td><p id="x3" class="divcss5-left"></p></td>
+                                <td><a id="v3" class="divcss5-left" onclick="deleteRow(this)"></a></td>
+                            </tr>
+                            <tr id="tr_4">
+                                <td><p id="m4" class="divcss5-left"></p></td>
+                                <td><p id="z4" class="divcss5-left"></p></td>
+                                <td><a id="n4" class="divcss5-left"></a></td>
+                                <td><p id="x4" class="divcss5-left"></p></td>
+                                <td><a id="v4" class="divcss5-left" onclick="deleteRow(this)"></a></td>
+                            </tr>
+
+                            <tr id="tr_5">
+                                <td><p id="m5" class="divcss5-left"></p></td>
+                                <td><p id="z5" class="divcss5-left"></p></td>
+                                <td><a id="n5" class="divcss5-left"></a></td>
+                                <td><p id="x5" class="divcss5-left"></p></td>
+                                <td><a id="v5" class="divcss5-left" onclick="deleteRow(this)"></a></td>
+                            </tr>
+
+                            <tr id="tr_6">
+                                <td><p id="m6" class="divcss5-left"></p></td>
+                                <td><p id="z6" class="divcss5-left"></p></td>
+                                <td><a id="n6" class="divcss5-left"></a></td>
+                                <td><p id="x6" class="divcss5-left"></p></td>
+                                <td><a id="v6" class="divcss5-left" onclick="deleteRow(this)"></a></td>
+                            </tr>
+
+                            <tr id="tr_7">
+                                <td><p id="m7" class="divcss5-left"></p></td>
+                                <td><p id="z7" class="divcss5-left"></p></td>
+                                <td><a id="n7" class="divcss5-left"></a></td>
+                                <td><p id="x7" class="divcss5-left"></p></td>
+                                <td><a id="v7" class="divcss5-left" onclick="deleteRow(this)"></a></td>
+                            </tr>
+
+                            <tr id="tr_8">
+                                <td><p id="m8" class="divcss5-left"></p></td>
+                                <td><p id="z8" class="divcss5-left"></p></td>
+                                <td><a id="n8" class="divcss5-left"></a></td>
+                                <td><p id="x8" class="divcss5-left"></p></td>
+                                <td><a id="v8" class="divcss5-left" onclick="deleteRow(this)"></a></td>
+                            </tr>
+
+                            <tr id="tr_9">
+                                <td><p id="m9" class="divcss5-left"></p></td>
+                                <td><p id="z9" class="divcss5-left"></p></td>
+                                <td><a id="n9" class="divcss5-left"></a></td>
+                                <td><p id="x9" class="divcss5-left"></p></td>
+                                <td><a id="v9" class="divcss5-left" onclick="deleteRow(this)"></a></td>
+                            </tr>
+
+                            <tr id="tr_10">
+                                <td><p id="m10" class="divcss5-left"></p></td>
+                                <td><p id="z10" class="divcss5-left"></p></td>
+                                <td><a id="n10" class="divcss5-left"></a></td>
+                                <td><p id="x10" class="divcss5-left"></p></td>
+                                <td><a id="v10" class="divcss5-left" onclick="deleteRow(this)"></a></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+
+        <!--上传文件-->
+        <div class="panel panel-default" id="panel1">
+                <div class="panel-heading" style="cursor: pointer;">
+                    <h3 class="flip_government" style="margin-bottom: 5px;margin-top:5px">
+                        文件上传
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        请上传资料后选择文件类型
+                    </p>
+                    <div class="panel_government" >
+                        <div id="government"> <!-- class="form-group" -->
+                            <input id="file-government" name="file_government" type="file" multiple="multiple" class="file" data-overwrite-initial="false" data-min-file-count="1"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!--提交-->
+        <form method="POST" id="upload_case" data-toggle="validator" enctype="multipart/form-data" action="/changeuploadcase">
+            <p><input id="name2" th:name="name2" th:value="${name}" style="display:none"/></p>
+            <p><input id="fff2" th:name="fff2" style="display:none"/></p>
+            <p><input type="submit" name="submit" class="btn btn-lg btn-success btn-block" value="提交" /></p>
+        </form>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+</div>
+<div class="foot">
+    <div class="footer_wrap">
+        <br/>
+        <p class="divcss5" th:size="5">西安交通大学版权所有 Copyright ©2017-2022 All Rights Reserved</p>
+        <p class="divcss5">推荐使用Firefox、IE6.0以上版本浏览器</p>
+    </div>
+</div>
+</body>
+<script th:src="@{/js/revisefile.js}"></script>
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/new.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/fileinput.js}"></script>
+<script th:src="@{/js/jump.js}"></script>
+<script th:src="@{/js/locales/zh.js}"></script>
+<script th:src="@{/themes/explorer/theme.js}"></script>
+<script th:src="@{/js/plugins/sortable.js}"></script>
+<script th:src="@{/js/plugins/purify.min.js}"></script>
+<!-- 滚动 -->
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $(".flip_government").click(function(){
+            $(".panel_government").slideToggle("slow");
+        });
+
+    });
+</script>
+<!-- 上传文件 -->
+<script>
+    $("#file-government").fileinput({
+        language: 'zh',
+        data:'name=' + $("#name").val(),
+        uploadUrl: '/uploadfile', // you must set a valid URL here else you will get an error
+        allowedFileExtensions: ['jpg', 'png', 'gif','pdf','doc','c','xlsx','docx','txt'],
+        overwriteInitial: false,
+        maxFileSize: 10000000,
+        maxFilesNum: 20,
+        uploadExtraData: {
+            name: $('#name').val()
+        },
+        slugCallback: function (filename) {
+            return filename.replace('(', '_').replace(']', '_');
+        }
+    });
+</script>
+
+<script>
+    function logout() {
+        window.location.href = '/logout';
+    }
+</script>
+
+</html>

@@ -1,0 +1,268 @@
+<!--项目详情的第1页页面-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        .header{
+            width:100%;
+            height: 70px;
+            text-align: center;
+            color: white;
+            background-color: #006400;
+            padding-top: 13px;
+            margin: 0 0 0 0;
+            clear: both;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height:25px;
+        }
+
+        #wrapper {
+            width: 100%;
+            background: #202020;
+        }
+
+        #page-wrapper {
+            padding: 15px 15px;
+            min-height: 600px;
+            background: #F3F3F3;
+        }
+        .active-menu {
+            background-color: #00CA79!important;
+        }
+        #page-inner {
+            width: 100%;
+            margin: 10px 20px 10px 0px;
+            background-color: #fff!important;
+            padding: 10px;
+            min-height: 1200px;
+        }
+        .navbar-side {
+            border: none;
+            background-color: #202020;
+        }
+        .navbar-default {
+            border: 0px solid black;
+        }
+        .sidebar-collapse > .nav > li > a {
+            padding: 15px 10px;
+        }
+
+        .sidebar-collapse, .sidebar-collapse .nav {
+            background: none;
+            font-size: 15px;
+            text-align: center;
+            font-family: 微软雅黑;
+        }
+        .sidebar-collapse .nav {
+            padding: 0;
+        }
+        .sidebar-collapse .nav > li > a {
+            color: #fff;
+            background: #202020;
+            text-shadow: none;
+            padding: 15px 40px;
+            border-bottom: 1px solid #2F2E31;
+        }
+        .sidebar-collapse > .nav > li > a {
+            padding: 15px 10px;
+        }
+        .sidebar-collapse .nav > li > a:hover,
+        .sidebar-collapse .nav > li > a:focus {
+            background: #0A0A0A;
+            outline: 0;
+        }
+        .nav-second-level > li:last-child > a:after,
+        .nav-third-level > li:last-child > a:after {
+            height: 50%;
+        }
+        @media (min-width:768px) {
+            #page-wrapper {
+                margin: 0 0 0 260px;
+                padding: 15px 30px;
+                min-height: 1200px;
+            }
+
+
+            .navbar-side {
+                z-index: 1;
+                position: absolute;
+                width: 260px;
+            }
+
+            .navbar {
+                border-radius: 0px;
+            }
+        }
+    </style>
+    <style>
+        table,tr{
+            border-collapse: collapse;
+            width: 100%;
+            font-weight:bold;
+        }
+    </style>
+    <style>
+    .headunder{
+        width:100%;
+        height: 50px;
+        background-color: darkgreen;
+        margin: 0 0 0 0;
+        clear: both;
+    }
+    .headunder_wrap {
+        width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8
+    }
+    a:hover{
+        color: black;
+    }
+    #liid a:hover {
+        background-color: rgb(26, 93, 150);
+        cursor: pointer;
+    }
+    #ul a{
+        color:white;
+        background-color: rgba(26, 93, 150, 0);cursor: pointer;
+    }
+    #ul a:hover{
+        color:white;
+        background-color: rgb(26, 93, 150);cursor: pointer;
+    }
+    #ul2 a{
+        color:#337ab7;
+        background-color: white;cursor: pointer;
+    }
+    #ul2 a:hover{
+        color:#054984;
+        background-color: white;cursor: pointer;
+    }
+    </style>
+</head>
+
+<!--func()和导航栏的函数在showbasic.js-->
+<body onload="func()">
+<div class="headunder">
+    <div class="headunder_wrap">
+        <div class="navbar-form navbar-left">
+            <a href="/home" style="color: white;font-size: 20px;text-decoration : none ">能源项目评估管理平台</a>
+        </div>
+        <div class="nav navbar-nav navbar-right" >
+            <ul class="nav navbar-nav">
+                <li id="ul" class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >账号管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li id="ul2">
+                            <a href="/passwordmanage">修改密码</a>
+                            <a th:if="${type==1}" href="/showusers">用户管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown" >
+                    <button onclick="logout()" th:unless="false" class="btn btn-danger navbar-btn" type="button">退出</button>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<div id="wrapper" >
+    <!--左侧导航栏-->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <a class="active-menu" href="#" onclick="showdetail1()">基本信息</a>
+                </li>
+                <li>
+                    <a href="#" onclick="basics()">基础指标</a>
+                </li>
+                <li>
+                    <a href="#" onclick="nohot()">不含热收益</a>
+                </li>
+                <li>
+                    <a href="#" onclick="hot()">含热收益</a>
+                </li>
+                <li>
+                    <a href="#" onclick="verify()">项目文件</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--右侧内容-->
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="left">
+                    <div class="form-group">
+                        <table >
+                            <label for="Name" class="control-label">项目名称</label>
+                            <tr class="form-control" id="Name" ><td></td></tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <table>
+                            <label for="Data" class="control-label">时间</label>
+                            <tr class="form-control" id="Data" ><td></td></tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <table>
+                            <label for="Place" class="control-label">项目地点</label>
+                            <tr class="form-control" id="Place" ><td></td></tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <table>
+                            <label for="Partner" class="control-label">合作方</label>
+                            <tr class="form-control" id="Partner" ><td></td></tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <table>
+                            <label for="Charge" class="control-label">负责人</label>
+                            <tr class="form-control" id="Charge" ><td></td></tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <table>
+                            <label for="Content" class="control-label">主要内容</label>
+                            <tr class="form-control" id="Content" ><td></td></tr>
+                        </table>
+                    </div>
+                    <div class="form-group w3ls-opt">
+                        <table>
+                            <label for="Statue" class="control-label">审核状态</label>
+                            <tr class="form-control" id="Statue" ><td></td></tr>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="foot">
+    <div class="footer_wrap">
+        <br/>
+        <p class="divcss5" th:size="5">西安交通大学版权所有 Copyright ©2017-2022 All Rights Reserved</p>
+        <p class="divcss5">推荐使用Firefox、IE6.0以上版本浏览器</p>
+    </div>
+</div>
+</body>
+<script th:src="@{http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js}"></script>
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+<script th:src="@{/js/showbasic.js}"></script>
+<script th:src="@{/js/showdetail.js}"></script>
+<script th:src="@{/js/verify1.js}"></script>
+<script>
+    function logout() {
+        window.location.href = '/logout';
+    }
+</script>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content="未登录首页"/>
+        <meta name="author" content="cc"/>
+        <title>能源项目评估管理平台</title>
+        <link th:href="@{css/bootstrap.min.css}" rel="stylesheet" />
+        <link th:href="@{css/cover.css}" rel="stylesheet" />
+    </head>
+    <body background="img/bg1.jpg">
+
+<!--登录按钮提交数据至login.js-->
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="container">
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">能源项目评估管理平台</h3>
+              <nav>
+                <ul class="nav masthead-nav nva-right">
+                  <li class="active"><a href="#">首页</a></li>
+                  <li><a href="/gongneng">系统功能</a></li>
+                  <li><a href="/lianxi">联系我们</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+            <div class="col-md-4 column">
+            </div>
+            <div class="col-md-4 column">
+              <div class="divcss5">
+              <h2 class="form-signin-heading">请登录</h2>
+                  <label style="float: left;" for="inputNumber">请输入用户工号</label>
+                        <input type="text" id="inputNumber" class="form-control" name="inputNumber" placeholder="用户工号"  required="required" autofocus="autofocus"/>
+                  <br />
+                  <label style="float: left;" for="inputPassword">请输入密码</label>
+                        <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="密码" required="required"/>
+                  <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="remember-me"/> 记住我
+                         </label>
+                  </div>
+                  <button type="button"  class="btn btn-lg btn-primary btn-block"  onclick="postData()">登录</button>
+                  <br/>
+                  <a class="btn btn-lg btn-success btn-block" href="/signup" role="button">注册</a>
+              </div>
+
+                </div>
+        </div>
+
+          <div class="col-md-3 column">
+          </div>
+          <div class="col-md-3 column">
+          <div class="mastfoot">
+              <div class="inner">
+                  <p> 能源项目评估管理平台<a href="http://www.xjtu.edu.cn"></a>, by <a href="http://www.xjtu.edu.cn/">@西安交通大学 2017</a>.</p>
+              </div>
+          </div>
+          </div>
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+        <script th:src="@{/js/jquery.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/login.js}"></script>
+    </body>
+</html>
+
+<script language="javascript">
+    function login1() {
+        if(!$('#inputNumber').val()||!$('#inputPassword').val())
+            alert("用户工号或密码不能为空")
+        else
+        window.location.href='/home';
+    }
+</script>

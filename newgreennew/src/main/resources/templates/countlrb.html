@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--xmlns:th="http://www.thymeleaf.org"-->
+
+<head lang="en">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <style type="text/css">
+        .headunder{
+            width:100%;
+            height: 50px;
+            background-color: darkgreen;
+            margin: 0 0 0 0;
+            clear: both;
+        }
+        .headunder_wrap { width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8}
+
+        a:hover{
+            color: black;
+        }
+        .body1{
+            margin: 0px;
+            min-height: 1000px;
+            margin-bottom: 0px;
+            padding: 0px}
+        #liid a:hover {
+            background-color: rgb(26, 93, 150);
+            cursor: pointer;
+        }
+        #ul a{
+            color:white;
+            background-color: rgba(26, 93, 150, 0);cursor: pointer;
+        }
+        #ul a:hover{
+            color:white;
+            background-color: rgb(26, 93, 150);cursor: pointer;
+        }
+        #ul2 a{
+            color:#337ab7;
+            background-color: white;cursor: pointer;
+        }
+        #ul2 a:hover{
+            color:#054984;
+            background-color: white;cursor: pointer;
+        }
+
+    </style>
+    <style type="text/css">
+        p i {
+            /*color: #03a678;*/
+            color:green;
+        }
+
+        label p {
+            display: inline-block;
+            width: 240px;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #555;
+            vertical-align: middle;
+            background-color: #FFFFFF;
+            background-image: none;
+            border: 1px solid green;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+        }
+    </style>
+    <title>利润表</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}" />
+
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/fonts/fontawesome-webfont.svg" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/jquery-accordion-menu.css}" />
+    <style type="text/css">
+        /*for NAV*/
+
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+        .content {
+            width: 100px;
+        }
+
+
+        #demo-list a {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
+        }
+    </style>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/count.js}"></script>
+    <script th:src="@{/js/countlrb.js}"></script>
+    <script th:src="@{/js/uploadcount.js}"></script>
+    <script th:src="@{js/jquery-accordion-menu.js}"></script>
+    <script type="text/javascript">
+        $(function() {
+            //顶部导航切换
+            $("#demo-list li").click(function() {
+                $("#demo-list li.active").removeClass("active")
+                $(this).addClass("active");
+            })
+        })
+    </script>
+
+</head>
+<body>
+<div class="headunder">
+    <div class="headunder_wrap">
+        <div class="navbar-form navbar-left">
+            <a href="/home" style="color: white;font-size: 20px;text-decoration : none ">能源项目评估管理平台</a>
+        </div>
+        <div class="nav navbar-nav navbar-right" >
+            <ul class="nav navbar-nav">
+                <li id="ul" class="dropdown">
+
+                    <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >账号管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li id="ul2"><a href="/modify">修改密码</a></li>
+
+                    </ul>
+                </li>
+                <li class="dropdown" >
+
+                    <button onclick="logout()" th:unless="false" class="btn btn-danger navbar-btn" type="button">退出</button>
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<h1 class="divcss5" style="text-align:center">利润表</h1>
+<br/>
+
+
+<div class="container">
+    <div class="row">
+        <!--NAV BAR-->
+
+        <div class="col-md-2" style="float:left;display:inline">
+            <div class="content" style="float:left;display:inline">
+                <div id="jquery-accordion-menu" class="jquery-accordion-menu green">
+                    <ul id="demo-list">
+                        <li>
+                            <a href="#title1"><i class="fa fa-gg"></i>&nbsp; 利润计算</a>
+                            <ul class="submenu">
+                                <li>
+                                    <a href="#title1"><i class="fa fa-gg"></i>&nbsp; 营业总收入</a>
+                                </li>
+                                <li>
+                                    <a href="#title2"><i class="fa fa-gg"></i>&nbsp; 营业总成本</a>
+                                </li>
+                                <li>
+                                    <a href="#title3"><i class="fa fa-gg"></i>&nbsp; 营业利润</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--MAIN SECTION-->
+        <!--<div class="col-md-1" style="float:left;display:inline">-->
+        <!--</div>-->
+      <div class="col-md-10" style="float:left;display:inline">
+            <div class="panel-group" id="accordion">
+                <form id="form1" name="form1">
+
+                    <div class="panel panel-success" id="title1">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"> <a data-toggle="collapse" href="#collapse1" style="text-decoration: none"> 利润-营业总收入 </a> </h4>
+                        </div>
+                        <div class="panel-body">
+                            <div id="collapse1" class="panel-collapse collapse in">
+                                <table border="5" frame="void" class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <th>项目</th>
+                                        <th>年份</th>
+                                        <th>年份</th>
+                                        <th>年份</th>
+                                    </tr>
+                                    <tr>
+                                        <td><label>营业收入</label></td>
+                                        <td><label style="float:left"><input id="lr11" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr21" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr31" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>利息收入</label></td>
+                                        <td><label style="float:left"><input id="lr12" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr22" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr32" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>已赚保费</label></td>
+                                        <td><label style="float:left"><input id="lr13" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr23" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr33" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>手续费及佣金收入</label></td>
+                                        <td><label style="float:left"><input id="lr14" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr24" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr34" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>非流动负债合计</label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr1"></em></p></label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr2"></em></p></label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr3"></em></p></label></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-success" id="title2">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"> <a data-toggle="collapse" href="#collapse2" style="text-decoration: none"> 利润-营业总成本 </a> </h4>
+                        </div>
+                        <div class="panel-body">
+                            <div id="collapse2" class="panel-collapse collapse in">
+                                <table border="5" frame="void" class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <th>项目</th>
+                                        <th>年份</th>
+                                        <th>年份</th>
+                                        <th>年份</th>
+                                    </tr>
+                                    <tr>
+                                        <td><label>营业成本</label></td>
+                                        <td><label style="float:left"><input id="lr41" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr51" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr61" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>利息支出</label></td>
+                                        <td><label style="float:left"><input id="lr42" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr52" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr62" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>手续费及佣金支出</label></td>
+                                        <td><label style="float:left"><input id="lr43" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr53" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr63" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>退保金</label></td>
+                                        <td><label style="float:left"><input id="lr44" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr54" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr64" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>赔付支出净额</label></td>
+                                        <td><label style="float:left"><input id="lr45" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr55" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr65" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>提取保险合同准备金净额</label></td>
+                                        <td><label style="float:left"><input id="lr46" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr56" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr66" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>保单红利支出</label></td>
+                                        <td><label style="float:left"><input id="lr47" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr57" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr67" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>营业税金及附加</label></td>
+                                        <td><label style="float:left"><input id="lr48" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr58" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr68" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>销售费用</label></td>
+                                        <td><label style="float:left"><input id="lr49" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr59" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr69" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>管理费用</label></td>
+                                        <td><label style="float:left"><input id="lr410" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr510" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr610" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>研究与开发费</label></td>
+                                        <td><label style="float:left"><input id="lr411" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr511" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr611" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>财务费用</label></td>
+                                        <td><label style="float:left"><input id="lr412" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr512" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr612" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>利息支出</label></td>
+                                        <td><label style="float:left"><input id="lr413" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr513" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr613" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>利息收入</label></td>
+                                        <td><label style="float:left"><input id="lr414" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr514" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr614" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>汇兑净损失</label></td>
+                                        <td><label style="float:left"><input id="lr415" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr515" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr615" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>资产减值损失</label></td>
+                                        <td><label style="float:left"><input id="lr416" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr516" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr616" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>其他</label></td>
+                                        <td><label style="float:left"><input id="lr417" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr517" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr617" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>公允价值变动收益</label></td>
+                                        <td><label style="float:left"><input id="lr418" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr518" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr618" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>投资收益</label></td>
+                                        <td><label style="float:left"><input id="lr419" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr519" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr619" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>对联营企业和和企企业的投资收益</label></td>
+                                        <td><label style="float:left"><input id="lr420" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr520" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr620" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>汇兑收益</label></td>
+                                        <td><label style="float:left"><input id="lr421" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr521" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr621" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>营业总成本</label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr4"></em></p></label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr5"></em></p></label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr6"></em></p></label></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-success" id="title3">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"> <a data-toggle="collapse" href="#collapse3" style="text-decoration: none"> 利润-营业利润 </a> </h4>
+                        </div>
+                        <div class="panel-body">
+                            <div id="collapse3" class="panel-collapse collapse in">
+                                <table border="5" frame="void" class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <th>项目</th>
+                                        <th>年份</th>
+                                        <th>年份</th>
+                                        <th>年份</th>
+                                    </tr>
+                                    <tr>
+                                        <td><label>营业利润</label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr7"></em></p></label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr8"></em></p></label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr9"></em></p></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>非流动资产处置利得</label></td>
+                                        <td><label style="float:left"><input id="lr71" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr81" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr91" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>非货币性资产交换利得</label></td>
+                                        <td><label style="float:left"><input id="lr72" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr82" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr92" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>政府补助</label></td>
+                                        <td><label style="float:left"><input id="lr73" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr83" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr93" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>债务重组利得</label></td>
+                                        <td><label style="float:left"><input id="lr74" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr84" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr94" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>非流动资产处置损失</label></td>
+                                        <td><label style="float:left"><input id="lr75" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr85" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr95" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>非货币性资产交换损失</label></td>
+                                        <td><label style="float:left"><input id="lr76" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr86" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr96" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>债务重组损失</label></td>
+                                        <td><label style="float:left"><input id="lr77" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr87" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                        <td><label style="float:left"><input id="lr97" type="text" class="form-control" value="0" onchange="countlrb();"/> </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>利润总额</label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr10"></em></p></label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr11"></em></p></label></td>
+                                        <td><label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="lrr12"></em></p></label></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+ <!--       <div class="home-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="home-content cta-container">
+                            <button type="button" class="btn btn-default btn-lg" onclick="uploadcount();uploadcount1();uploadcount2();uploadcount3();uploadcount4();uploadcount5()">提交</button>
+                            <p id="url" style="color:black"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>     -->
+
+
+        <script type="text/javascript">
+            jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
+        </script>
+
+
+    </div>
+</div>
+</body>
+
+</html>

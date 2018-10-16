@@ -1,0 +1,667 @@
+<!--上传项目的第二页 数据上传-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<title>count</title>
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/fonts/fontawesome-webfont.svg" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" th:href="@{css/jquery-accordion-menu.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{css/style.css}" />
+	<style type="text/css">
+		/*for NAV*/
+
+		* {
+			box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+		}
+
+		.content {
+			width: 100px;
+		}
+
+
+		#demo-list a {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			-o-text-overflow: ellipsis;
+			white-space: nowrap;
+			width: 100%;
+		}
+	</style>
+	<style type="text/css">
+		.headunder{
+			width:100%;
+			height: 50px;
+			background-color: darkgreen;
+			margin: 0 0 0 0;
+			clear: both;
+		}
+		.headunder_wrap { width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8}
+
+		a:hover{
+			color: black;
+		}
+		.body1{
+			margin: 0px;
+			min-height: 1000px;
+			margin-bottom: 0px;
+			padding: 0px}
+		#liid a:hover {
+			background-color: rgb(26, 93, 150);
+			cursor: pointer;
+		}
+		#ul a{
+			color:white;
+			background-color: rgba(26, 93, 150, 0);cursor: pointer;
+		}
+		#ul a:hover{
+			color:white;
+			background-color: rgb(26, 93, 150);cursor: pointer;
+		}
+		#ul2 a{
+			color:#337ab7;
+			background-color: white;cursor: pointer;
+		}
+		#ul2 a:hover{
+			color:#054984;
+			background-color: white;cursor: pointer;
+		}
+
+	</style>
+	<style type="text/css">
+		p i {
+			/*color: #03a678;*/
+			color:green;
+		}
+
+		label p {
+			display: inline-block;
+			width: 240px;
+			height: 34px;
+			padding: 6px 12px;
+			font-size: 14px;
+			line-height: 1.428571429;
+			color: #555;
+			vertical-align: middle;
+			background-color: #FFFFFF;
+			background-image: none;
+			border: 1px solid green;
+			border-radius: 4px;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+			-webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+			transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+		}
+	</style>
+</head>
+
+<!--数值实时计算用count.js-->
+<!--点击下一步按钮调用count.js-->
+<body>
+<div class="headunder">
+	<div class="headunder_wrap">
+		<div class="navbar-form navbar-left">
+			<a href="/home" style="color: white;font-size: 20px;text-decoration : none ">能源项目评估管理平台</a>
+		</div>
+		<div class="nav navbar-nav navbar-right" >
+			<ul class="nav navbar-nav">
+				<li id="ul" class="dropdown">
+
+					<a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >账号管理<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+
+						<li id="ul2">
+							<a href="/passwordmanage">修改密码</a>
+							<a th:if="${type==1}" href="/showusers">用户管理</a>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown" >
+
+					<button onclick="logout()" th:unless="false" class="btn btn-danger navbar-btn" type="button">退出</button>
+
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</div>
+<h1 class="divcss5" style="text-align:center">数据上传</h1>
+<br/>
+<div class="container">
+	<div class="row">
+		<!--左边导航栏-->
+		<div class="col-md-2" style="float:left;display:inline">
+					<div class="content" style="float:left;display:inline">
+						<div id="jquery-accordion-menu" class="jquery-accordion-menu green">
+							<ul id="demo-list">
+								<li>
+									<a href="#titleOne"><i class="fa fa-gg"></i>&nbsp; IRR计算</a>
+									<ul class="submenu">
+										<li>
+											<a href="#titleOne"><i class="fa fa-gg"></i>&nbsp; 基础指标</a>
+											<ul class="submenu">
+												<li>
+													<a href="#B26">年发电量 </a>
+												</li>
+												<li>
+													<a href="#B31">不含税电价</a>
+												</li>
+												<li>
+													<a href="#B312">不含税供气价格 </a>
+												</li>
+												<li>
+													<a href="#B37">不含税单位燃气成本</a>
+												</li>
+												<li>
+													<a href="#B18">财务费用</a>
+												</li>
+												<li>
+													<a href="#B40">其它税率</a>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<a href="#titleTwo"><i class="fa fa-gg"></i>&nbsp; 不含热收益</a>
+											<ul class="submenu">
+												<li>
+													<a href="#collapseTwo">收益明细</a>
+												</li>
+												<li>
+													<a href="#table1">净现金流</a>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<a href="#titleThree"><i class="fa fa-gg"></i>&nbsp; 含热收益</a>
+											<ul class="submenu">
+												<li>
+													<a href="#collapseThree">收益明细</a>
+												</li>
+												<li>
+													<a href="#table2">净现金流</a>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+		<!--右边内容-->
+		<div class="col-md-10" style="float:left;display:inline">
+					<div class="panel-group" id="accordion">
+						<form id="form1" name="form1">
+						<div class="panel panel-success" id="titleOne">
+							<div class="panel-heading" >
+								<h4 class="panel-title"> <a data-toggle="collapse" href="#collapseOne" style="text-decoration: none">IRR-基础指标 </a> </h4>
+							</div>
+							<div class="panel-body">
+								<div id="collapseOne" class="panel-collapse collapse in">
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label" > 规模(MW)</label>
+											<label style="float:left"><input id="B26" type="text" class="form-control"  onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()" name="SCALE"/> </label>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 发电小时(小时)</label>
+											<label style="float:left"> <input id="B27" type="text" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()" name="ELE_GENERATION_H"/></label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 自耗电率</label>
+											<label style="float:left"> <input id="B28" name="SELF_CONSUME_RATIO" type="text" class="form-control " onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()" /></label>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 年供热量（吨）</label>
+											<label style="float:left"> <input id="B33" name="HEAT_PRODUCTION" type="text" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()"/></label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 年发电量（KWH）</label>
+											<label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="result1"></em></p></label>
+											<!--<label style="float:left"> <input id="test" type="text" class="form-control" onchange="hanreshouyi1();"/></label>-->
+										</div>
+									</div>
+									<div style="width:100%; height:2px; border-top:1px solid #03a678; clear:both;"></div>
+									<br/>
+
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 收入增值税税率</label>
+											<label> <input id="B31" type="text" name="INCOME_VAT_RATE" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()" value="17%"/></label>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 含税电价（元/KWH）</label>
+											<label> <input id="B30" name="WITH_TAX_ELE_PRICE" type="text" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1() "/></label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 不含税电价</label>
+											<label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="result2"></em></p></label>
+										</div>
+									</div>
+									<div style="width:100%; height:2px; border-top:1px solid #03a678; clear:both;"></div>
+									<br/>
+
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 收入增值税税率</label>
+											<label> <input id="B312" type="text" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()" value="17%"/></label>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 含税供气价格（元/吨)</label>
+											<label> <input id="B34" type="text"  name="WITH_TAX_GAS_PRICE" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()" /></label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 不含税供气价格（元/吨)</label>
+											<label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="result3"></em></p></label>
+										</div>
+									</div>
+									<div style="width:100%; height:2px; border-top:1px solid #03a678; clear:both;"></div>
+									<br/>
+
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 成本增值税税率</label>
+											<label> <input id="B37" name="COST_TAX_RATE" type="text" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()" /></label>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 含税单位燃气成本（元/KWH）</label>
+											<label> <input id="B36" type="text" name="WITH_TAX_GAS_COST" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()"/></label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 不含税单位燃气成本（元/KWH)</label>
+											<label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="result4"></em></p></label>
+										</div>
+									</div>
+									<div style="width:100%; height:2px; border-top:1px solid #03a678; clear:both;"></div>
+									<br/>
+
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 利息利率</label>
+											<label> <input id="B18" name="INTEREST_RATE" type="text" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()"/></label>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 投资额（元）</label>
+											<label> <input id="B16" type="text" name="INVEST_AMOUNT" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()"/></label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label">管理费用（元） </label>
+											<label> <input id="B39" type="text" name="MANAGE_COST" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi3();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()" /></label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 财务费用</label>
+											<label style="float:left"><p style="display:inline-block;width:240px;" ><i class="fa fa-calculator"></i>&nbsp;<em id="result5"></em></p></label>
+										</div>
+									</div>
+									<div style="width:100%; height:2px; border-top:1px solid #03a678; clear:both;"></div>
+									<br/>
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label">城建税税率 </label>
+											<label> <input id="B40" type="text" name="CONSTRUCTION_TAX_RATE" class="form-control" value="5%" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()"/></label>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 教育税附加税率</label>
+											<label> <input id="B41" type="text" name="EDU_ADDITION_TAX_RATE" class="form-control" value="3%" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1()"/></label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 地方教育税附加税率</label>
+											<label> <input id="B42" type="text" name="LOCAL_EDU_ADDITION_TAX_RATE" class="form-control"  onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1();"/></label>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-5 control-label"> 企业所得税税率</label>
+											<label> <input id="B43" type="text" name="BUSINESS_INCOME_TAX_RATE" class="form-control" onchange="result5();result4();result3();result2();result1();hanreshouyi1();hanreshouyi2();hanreshouyi3();hanreshouyi4();hanreshouyi5();buhanreshouyi1();getirr();getirr1();"/></label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="panel panel-success" id="titleTwo">
+							<div class="panel-heading">
+								<h4 class="panel-title"> <a data-toggle="collapse" href="#collapseTwo" style="text-decoration: none"> IRR-不含热收益 </a> </h4>
+							</div>
+							<div class="panel-body">
+								<div id="collapseTwo" class="panel-collapse collapse in">
+									<table class="table table-striped">
+										<tbody>
+										<tr>
+											<th>项目</th>
+											<th>建设期2年</th>
+											<th>试运营第1年</th>
+											<th>运营第2-3年</th>
+											<th>运营第4-5年</th>
+											<th>运营第6-8年</th>
+										</tr>
+										<tr>
+											<td><label>电费收入</label></td>
+											<td><p id="E3"></p></td>
+											<td><p id="F3"></p></td>
+											<td><p id="G3"></p></td>
+											<td><p id="H3"></p></td>
+											<td><p id="I3"></p></td>
+										</tr>
+										<tr>
+											<td><label>燃气成本</label></td>
+											<td><p id="E4"></p></td>
+											<td><p id="F4"></p></td>
+											<td><p id="G4"></p></td>
+											<td><p id="H4"></p></td>
+											<td><p id="I4"></p></td>
+										</tr>
+										<tr>
+											<td><label>毛利</label></td>
+											<td><p id="E5"></p></td>
+											<td><p id="F5"></p></td>
+											<td><p id="G5"></p></td>
+											<td><p id="H5"></p></td>
+											<td><p id="I5"></p></td>
+										</tr>
+										<tr>
+											<td><label>流转税</label></td>
+											<td><p id="E6"></p></td>
+											<td><p id="F6"></p></td>
+											<td><p id="G6"></p></td>
+											<td><p id="H6"></p></td>
+											<td><p id="I6"></p></td>
+										</tr>
+										<tr>
+											<td><label>管理费用</label></td>
+											<td><p id="E7"></p></td>
+											<td><p id="F7"></p></td>
+											<td><p id="G7"></p></td>
+											<td><p id="H7"></p></td>
+											<td><p id="I7"></p></td>
+										</tr>
+										<tr>
+											<td><label>财务费用</label></td>
+											<td><p id="E8"></p></td>
+											<td><p id="F8"></p></td>
+											<td><p id="G8"></p></td>
+											<td><p id="H8"></p></td>
+											<td><p id="I8"></p></td>
+										</tr>
+										<tr>
+											<td><label>EBITDA</label></td>
+											<td><p id="E9"></p></td>
+											<td><p id="F9"></p></td>
+											<td><p id="G9"></p></td>
+											<td><p id="H9"></p></td>
+											<td><p id="I9"></p></td>
+										</tr>
+										<tr>
+											<td><label>企业所得税</label></td>
+											<td><p id="E10"></p></td>
+											<td><p id="F10"></p></td>
+											<td><p id="G10"></p></td>
+											<td><p id="H10"></p></td>
+											<td><p id="I10"></p></td>
+										</tr>
+										<tr>
+											<td><label>净现金流</label></td>
+											<td><p id="E11"></p></td>
+											<td><p id="F11"></p></td>
+											<td><p id="G11"></p></td>
+											<td><p id="H11"></p></td>
+											<td><p id="I11"></p></td>
+										</tr>
+										</tbody>
+									</table>
+									<table id="table1" class="table table-striped">
+										<caption align="top" style="font-size:15px;font-weight:bold;">10年内净现金流</caption>
+										<tbody>
+										<tr>
+											<th>负债额</th>
+											<th>第1年</th>
+											<th>第2年</th>
+											<th>第3年</th>
+											<th>第4年</th>
+											<th>第5年</th>
+											<th>第6年</th>
+											<th>第7年</th>
+											<th>第8年</th>
+											<th>第9年</th>
+											<th>第10年</th>
+										</tr>
+										<tr>
+											<td><p id="D15"></p></td>
+											<td><p id="E15"></p></td>
+											<td><p id="F15"></p></td>
+											<td><p id="G15"></p></td>
+											<td><p id="H15"></p></td>
+											<td><p id="I15"></p></td>
+											<td><p id="J15"></p></td>
+											<td><p id="K15"></p></td>
+											<td><p id="L15"></p></td>
+											<td><p id="M15"></p></td>
+											<td><p id="N15"></p></td>
+										</tr>
+										</tbody>
+									</table>
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-2 control-label"> IRR</label>
+											<label style="float:left"><p><i class="fa fa-calculator"></i>&nbsp;<em id="IRR1"></em></p></label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="panel panel-success" id="titleThree">
+							<div class="panel-heading">
+								<h4 class="panel-title"> <a data-toggle="collapse" href="#collapseThree" style="text-decoration: none"> IRR-含热收益 </a> </h4>
+							</div>
+							<div class="panel-body">
+								<div id="collapseThree" class="panel-collapse collapse in">
+									<table class="table table-striped">
+										<tbody>
+										<tr>
+											<th>项目</th>
+											<th>建设期2年</th>
+											<th>试运营第1年</th>
+											<th>运营第2-3年</th>
+											<th>运营第4-5年</th>
+											<th>运营第6-8年</th>
+										</tr>
+										<tr>
+											<td><label>电费收入</label></td>
+											<td><p id="E21"></p></td>
+											<td><p id="F21"></p></td>
+											<td><p id="G21"></p></td>
+											<td><p id="H21"></p></td>
+											<td><p id="I21"></p></td>
+										</tr>
+										<tr>
+											<td><label>热收入</label></td>
+											<td><p id="E22"></p></td>
+											<td><p id="F22"></p></td>
+											<td><p id="G22"></p></td>
+											<td><p id="H22"></p></td>
+											<td><p id="I22"></p></td>
+										</tr>
+										<tr>
+											<td><label>收入合计</label></td>
+											<td><p id="E23"></p></td>
+											<td><p id="F23"></p></td>
+											<td><p id="G23"></p></td>
+											<td><p id="H23"></p></td>
+											<td><p id="I23"></p></td>
+										</tr>
+										<tr>
+											<td><label>燃气成本</label></td>
+											<td><p id="E24"></p></td>
+											<td><p id="F24"></p></td>
+											<td><p id="G24"></p></td>
+											<td><p id="H24"></p></td>
+											<td><p id="I24"></p></td>
+										</tr>
+										<tr>
+											<td><label>毛利</label></td>
+											<td><p id="E25"></p></td>
+											<td><p id="F25"></p></td>
+											<td><p id="G25"></p></td>
+											<td><p id="H25"></p></td>
+											<td><p id="I25"></p></td>
+										</tr>
+										<tr>
+											<td><label>流转税</label></td>
+											<td><p id="E26"></p></td>
+											<td><p id="F26"></p></td>
+											<td><p id="G26"></p></td>
+											<td><p id="H26"></p></td>
+											<td><p id="I26"></p></td>
+										</tr>
+										<tr>
+											<td><label>管理费用</label></td>
+											<td><p id="E27"></p></td>
+											<td><p id="F27"></p></td>
+											<td><p id="G27"></p></td>
+											<td><p id="H27"></p></td>
+											<td><p id="I27"></p></td>
+										</tr>
+										<tr>
+											<td><label>财务费用</label></td>
+											<td><p id="E28"></p></td>
+											<td><p id="F28"></p></td>
+											<td><p id="G28"></p></td>
+											<td><p id="H28"></p></td>
+											<td><p id="I28"></p></td>
+										</tr>
+										<tr>
+											<td><label>EBITDA</label></td>
+											<td><p id="E29"></p></td>
+											<td><p id="F29"></p></td>
+											<td><p id="G29"></p></td>
+											<td><p id="H29"></p></td>
+											<td><p id="I29"></p></td>
+										</tr>
+										<tr>
+											<td><label>企业所得税</label></td>
+											<td><p id="E30"></p></td>
+											<td><p id="F30"></p></td>
+											<td><p id="G30"></p></td>
+											<td><p id="H30"></p></td>
+											<td><p id="I30"></p></td>
+										</tr>
+										<tr>
+											<td><label>净现金流</label></td>
+											<td><p id="E31"></p></td>
+											<td><p id="F31"></p></td>
+											<td><p id="G31"></p></td>
+											<td><p id="H31"></p></td>
+											<td><p id="I31"></p></td>
+										</tr>
+										</tbody>
+									</table>
+									<table  id="table2" class="table table-striped">
+										<caption align="top" style="font-size:15px;font-weight:bold;">10年内净现金流</caption>
+										<tbody>
+										<tr>
+											<th>负债额</th>
+											<th>第1年</th>
+											<th>第2年</th>
+											<th>第3年</th>
+											<th>第4年</th>
+											<th>第5年</th>
+											<th>第6年</th>
+											<th>第7年</th>
+											<th>第8年</th>
+											<th>第9年</th>
+											<th>第10年</th>
+										</tr>
+										<tr>
+											<td><p id="D35"></p></td>
+											<td><p id="E35"></p></td>
+											<td><p id="F35"></p></td>
+											<td><p id="G35"></p></td>
+											<td><p id="H35"></p></td>
+											<td><p id="I35"></p></td>
+											<td><p id="J35"></p></td>
+											<td><p id="K35"></p></td>
+											<td><p id="L35"></p></td>
+											<td><p id="M35"></p></td>
+											<td><p id="N35"></p></td>
+										</tr>
+										</tbody>
+									</table>
+									<div class="row">
+										<div class="col-md-6">
+											<label class="col-md-2 control-label"> IRR</label>
+											<label style="float:left"><p><i class="fa fa-calculator"></i>&nbsp;<em id="IRR2"></em></p></label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</form>
+					</div>
+				</div>
+		<!--提交按钮-->
+		<div class="home-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="home-content cta-container">
+							<button type="button" class="btn btn-default btn-lg" onclick="uploadcount();uploadcount1();uploadcount2();uploadcount3();uploadcount4();uploadcount5()">提交</button>
+							<p id="url" style="color:black"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="foot">
+	<div class="footer_wrap">
+		<br/>
+		<p class="divcss5" th:size="5">西安交通大学版权所有 Copyright ©2017-2022 All Rights Reserved</p>
+		<p class="divcss5">推荐使用Firefox、IE6.0以上版本浏览器</p>
+	</div>
+</div>
+</body>
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{js/jquery-accordion-menu.js}"></script>
+
+<script th:src="@{/js/count.js}"></script>
+<script th:src="@{/js/uploadcount.js}"></script>
+<script type="text/javascript">
+    jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
+
+    function logout() {
+        window.location.href = '/logout';
+    }
+</script>
+<script type="text/javascript">
+    $(function() {
+        //顶部导航切换
+        $("#demo-list li").click(function() {
+            $("#demo-list li.active").removeClass("active")
+            $(this).addClass("active");
+        })
+    })
+</script>
+</html>

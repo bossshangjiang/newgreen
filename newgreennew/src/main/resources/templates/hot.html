@@ -1,0 +1,377 @@
+<!--项目详情的第4页信息-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        .header{
+            width:100%;
+            height: 70px;
+            text-align: center;
+            color: white;
+            background-color: darkgreen;
+            padding-top: 13px;
+            margin: 0 0 0 0;
+            clear: both;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height:25px;
+        }
+
+        #wrapper {
+            width: 100%;
+            background: #202020;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height:25px;
+        }
+
+        #page-wrapper {
+            padding: 15px 15px;
+            min-height: 600px;
+            background: #F3F3F3;
+        }
+        .active-menu {
+            background-color: #00CA79!important;
+        }
+        #page-inner {
+            width: 100%;
+            margin: 10px 20px 10px 0px;
+            background-color: #fff!important;
+            padding: 10px;
+            min-height: 1200px;
+        }
+        .navbar-side {
+            border: none;
+            background-color: #202020;
+        }
+        .navbar-default {
+            border: 0px solid black;
+        }
+        .sidebar-collapse > .nav > li > a {
+            padding: 15px 10px;
+        }
+
+        .sidebar-collapse, .sidebar-collapse .nav {
+            background: none;
+            font-size: 15px;
+            text-align: center;
+            font-family: 微软雅黑;
+        }
+        .sidebar-collapse .nav {
+            padding: 0;
+        }
+        .sidebar-collapse .nav > li > a {
+            color: #fff;
+            background: #202020;
+            text-shadow: none;
+            padding: 15px 40px;
+            border-bottom: 1px solid #2F2E31;
+        }
+        .sidebar-collapse > .nav > li > a {
+            padding: 15px 10px;
+        }
+        .sidebar-collapse .nav > li > a:hover,
+        .sidebar-collapse .nav > li > a:focus {
+            background: #0A0A0A;
+            outline: 0;
+        }
+        .nav-second-level > li:last-child > a:after,
+        .nav-third-level > li:last-child > a:after {
+            height: 50%;
+        }
+        @media (min-width:768px) {
+            #page-wrapper {
+                margin: 0 0 0 260px;
+                padding: 15px 30px;
+                min-height: 1200px;
+            }
+
+
+            .navbar-side {
+                z-index: 1;
+                position: absolute;
+                width: 260px;
+            }
+
+            .navbar {
+                border-radius: 0px;
+            }
+        }
+    </style>
+    <style>
+        #table6{
+            width: 200px;
+        }
+    </style>
+    <style type="text/css">
+        .headunder{
+            width:100%;
+            height: 50px;
+            background-color: darkgreen;
+            margin: 0 0 0 0;
+            clear: both;
+        }
+
+        .headunder_wrap { width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8}
+
+        a:hover{
+            color: black;
+        }
+        #liid a:hover {
+            background-color: rgb(26, 93, 150);
+            cursor: pointer;
+        }
+        #ul a{
+            color:white;
+            background-color: rgba(26, 93, 150, 0);cursor: pointer;
+        }
+        #ul a:hover{
+            color:white;
+            background-color: rgb(26, 93, 150);cursor: pointer;
+        }
+        #ul2 a{
+            color:#337ab7;
+            background-color: white;cursor: pointer;
+        }
+        #ul2 a:hover{
+            color:#054984;
+            background-color: white;cursor: pointer;
+        }
+        .header_wrap { width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8}
+    </style>
+</head>
+<body onload="func4()">
+<div class="headunder">
+    <div class="headunder_wrap">
+        <div class="navbar-form navbar-left">
+            <a href="/home" style="color: white;font-size: 20px;text-decoration : none ">能源项目评估管理平台</a>
+        </div>
+        <div class="nav navbar-nav navbar-right" >
+            <ul class="nav navbar-nav">
+                <li id="ul" class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >账号管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li id="ul2">
+                            <a href="/passwordmanage">修改密码</a>
+                            <a th:if="${type==1}" href="/showusers">用户管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown" >
+                    <button onclick="logout()" th:unless="false" class="btn btn-danger navbar-btn" type="button">退出</button>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<div id="wrapper">
+    <!--左侧导航栏-->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <a href="#" onclick="showdetail1()">基本信息</a>
+                </li>
+                <li>
+                    <a href="#" onclick="basics()">基础指标</a>
+                </li>
+                <li>
+                    <a href="#" onclick="nohot()">不含热收益</a>
+                </li>
+                <li>
+                    <a class="active-menu" href="#" onclick="nohot()">含热收益</a>
+                </li>
+                <li>
+                    <a href="#" onclick="verify()">项目文件</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--左侧导航栏-->
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="panel panel-success" id="titleThree">
+                <div class="panel-heading">
+                    <nobr>
+                        <h4 class="panel-title"> <a data-toggle="collapse" href="#collapseTwo" style="text-decoration: none"> IRR-含热收益 </a>
+                            <p class="panel-title" style="float: right">项目名称:&nbsp;<span id="Name"></span></p>
+                        </h4>
+                    </nobr>
+                </div>
+                <div class="panel-body">
+                    <div id="collapseThree" class="panel-collapse collapse in">
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <th>项目</th>
+                                <th>建设期2年</th>
+                                <th>试运营第1年</th>
+                                <th>运营第2-3年</th>
+                                <th>运营第4-5年</th>
+                                <th>运营第6-8年</th>
+                            </tr>
+                            <tr>
+                                <td><label>电费收入</label></td>
+                                <td><p id="E21"></p></td>
+                                <td><p id="F21"></p></td>
+                                <td><p id="G21"></p></td>
+                                <td><p id="H21"></p></td>
+                                <td><p id="I21"></p></td>
+                            </tr>
+                            <tr>
+                                <td><label>热收入</label></td>
+                                <td><p id="E22"></p></td>
+                                <td><p id="F22"></p></td>
+                                <td><p id="G22"></p></td>
+                                <td><p id="H22"></p></td>
+                                <td><p id="I22"></p></td>
+                            </tr>
+                            <tr>
+                                <td><label>收入合计</label></td>
+                                <td><p id="E23"></p></td>
+                                <td><p id="F23"></p></td>
+                                <td><p id="G23"></p></td>
+                                <td><p id="H23"></p></td>
+                                <td><p id="I23"></p></td>
+                            </tr>
+                            <tr>
+                                <td><label>燃气成本</label></td>
+                                <td><p id="E24"></p></td>
+                                <td><p id="F24"></p></td>
+                                <td><p id="G24"></p></td>
+                                <td><p id="H24"></p></td>
+                                <td><p id="I24"></p></td>
+                            </tr>
+                            <tr>
+                                <td><label>毛利</label></td>
+                                <td><p id="E25"></p></td>
+                                <td><p id="F25"></p></td>
+                                <td><p id="G25"></p></td>
+                                <td><p id="H25"></p></td>
+                                <td><p id="I25"></p></td>
+                            </tr>
+                            <tr>
+                                <td><label>流转税</label></td>
+                                <td><p id="E26"></p></td>
+                                <td><p id="F26"></p></td>
+                                <td><p id="G26"></p></td>
+                                <td><p id="H26"></p></td>
+                                <td><p id="I26"></p></td>
+                            </tr>
+                            <tr>
+                                <td><label>管理费用</label></td>
+                                <td><p id="E27"></p></td>
+                                <td><p id="F27"></p></td>
+                                <td><p id="G27"></p></td>
+                                <td><p id="H27"></p></td>
+                                <td><p id="I27"></p></td>
+                            </tr>
+                            <tr>
+                                <td><label>财务费用</label></td>
+                                <td><p id="E28"></p></td>
+                                <td><p id="F28"></p></td>
+                                <td><p id="G28"></p></td>
+                                <td><p id="H28"></p></td>
+                                <td><p id="I28"></p></td>
+                            </tr>
+                            <tr>
+                                <td><label>EBITDA</label></td>
+                                <td><p id="E29"></p></td>
+                                <td><p id="F29"></p></td>
+                                <td><p id="G29"></p></td>
+                                <td><p id="H29"></p></td>
+                                <td><p id="I29"></p></td>
+                            </tr>
+                            <tr>
+                                <td><label>企业所得税</label></td>
+                                <td><p id="E30"></p></td>
+                                <td><p id="F30"></p></td>
+                                <td><p id="G30"></p></td>
+                                <td><p id="H30"></p></td>
+                                <td><p id="I30"></p></td>
+                            </tr>
+                            <tr>
+                                <td><label>净现金流</label></td>
+                                <td><p id="E31"></p></td>
+                                <td><p id="F31"></p></td>
+                                <td><p id="G31"></p></td>
+                                <td><p id="H31"></p></td>
+                                <td><p id="I31"></p></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table  id="table2" class="table table-striped">
+                            <caption align="top" style="font-size:15px;font-weight:bold;">10年内净现金流</caption>
+                            <tbody>
+                            <tr>
+                                <th>负债额</th>
+                                <th>第1年</th>
+                                <th>第2年</th>
+                                <th>第3年</th>
+                                <th>第4年</th>
+                                <th>第5年</th>
+                                <th>第6年</th>
+                                <th>第7年</th>
+                                <th>第8年</th>
+                                <th>第9年</th>
+                                <th>第10年</th>
+                            </tr>
+                            <tr>
+                                <td><p id="D35"></p></td>
+                                <td><p id="E35"></p></td>
+                                <td><p id="F35"></p></td>
+                                <td><p id="G35"></p></td>
+                                <td><p id="H35"></p></td>
+                                <td><p id="I35"></p></td>
+                                <td><p id="J35"></p></td>
+                                <td><p id="K35"></p></td>
+                                <td><p id="L35"></p></td>
+                                <td><p id="M35"></p></td>
+                                <td><p id="N35"></p></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-md-2 control-label"> IRR</label>
+                                <label style="float:left"><table id="table6"><tr class="form-control" id="irr"><td></td></tr></table></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="foot">
+    <div class="footer_wrap">
+        <br/>
+        <p class="divcss5" th:size="5">西安交通大学版权所有 Copyright ©2017-2022 All Rights Reserved</p>
+        <p class="divcss5">推荐使用Firefox、IE6.0以上版本浏览器</p>
+    </div>
+</div>
+</body>
+<script th:src="@{http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js}"></script>
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+<script th:src="@{/js/showbasic.js}"></script>
+<script th:src="@{/js/showdetail.js}"></script>
+
+<script>
+    function logout() {
+        window.location.href = '/logout';
+    }
+</script>
+</html>

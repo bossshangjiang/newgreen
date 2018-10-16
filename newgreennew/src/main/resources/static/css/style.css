@@ -1,0 +1,58 @@
+.home-content .cta-container {
+	width: 100%;
+	text-align: center;
+	color: #ffffff;
+	margin-top: 24px;
+	margin-bottom: 24px;
+}
+
+.home-content .btn {
+	letter-spacing: 0.2em;
+	margin: 0 15px;
+	text-align: center;
+	padding: 0;
+	width: 200px;
+	height: 60px;
+	line-height: 60px;
+	box-sizing: border-box;
+	color: #ffffff;
+	transition: all 0.3s;
+	outline: none;
+	box-shadow: none;
+}
+
+.home-content .btn-default {
+	background-color: transparent;
+	color: #000000;
+	border: 1px solid #000000;
+}
+
+.home-content .btn-default:hover,
+.home-content .btn-default.active.focus,
+.home-content .btn-default.active:focus,
+.home-content .btn-default.active:hover,
+.home-content .btn-default:active.focus,
+.home-content .btn-default:active:focus,
+.home-content .btn-default:active:hover {
+	background: #000000;
+	color: green;
+	border-color: #000000;
+}
+
+.home-content .btn-primary {
+	background-color: green;
+	color: #ffffff;
+	border: 1px solid green;
+}
+
+.home-content .btn-primary:hover,
+.home-content .btn-primary.active.focus,
+.home-content .btn-primary.active:focus,
+.home-content .btn-primary.active:hover,
+.home-content .btn-primary:active.focus,
+.home-content .btn-primary:active:focus,
+.home-content .btn-primary:active:hover {
+	background: #ffffff;
+	color: green;
+	border-color: green;
+}

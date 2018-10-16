@@ -1,0 +1,312 @@
+<!--用户管理-->
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style type="text/css">
+        .body1{
+            margin: 0px;
+            min-height: 1000px;
+            margin-bottom: 0px;
+            padding: 0px}
+    </style>
+    <style>
+        .divcss5{text-align:center}
+        .caption{text-align:center}
+    </style>
+    <style>
+        .divcss5-left{float: left  ;  }
+    </style>
+    <style type="text/css">
+        .foot{
+            width:100%;
+            height: 90px;
+            background: #8c8c8c;
+            margin: 0 10px 20px 0;
+            clear: both;
+        }
+
+        .footer_wrap { width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8}
+    </style>
+    <style type="text/css">
+        .header{
+            width:100%;
+            height: 400px;
+            background:url("img/green.jpg");
+            margin: 0 0 20px 0;
+            margn:0;
+            padding:0;
+            clear: both;
+        }
+        #liid a:hover {
+            background-color: rgb(26, 93, 150);
+            cursor: pointer;
+        }
+        #ul a{
+            color:white;
+            background-color: rgba(26, 93, 150, 0);cursor: pointer;
+        }
+        #ul a:hover{
+            color:white;
+            background-color: rgb(26, 93, 150);cursor: pointer;
+        }
+        #ul2 a{
+            color:#337ab7;
+            background-color: white;cursor: pointer;
+        }
+        #ul2 a:hover{
+            color:#054984;
+            background-color: white;cursor: pointer;
+        }
+        .header_wrap { width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8}
+    </style>
+    <style type="text/css">
+        .headunder{
+            width:100%;
+            height: 50px;
+            background-color: darkgreen;
+            margin: 0 0 0 0;
+            clear: both;
+        }
+
+        .headunder_wrap { width:1000px; margin-left:auto; margin-right:auto; color: 	#f8f8f8}
+
+        a:hover{
+            color: black;
+        }
+    </style>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="未登录首页"/>
+    <meta name="author" content="cc"/>
+    <title>能源项目评估管理平台</title>
+    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{css/navbar-fixed-top.css}" rel="stylesheet" />
+</head>
+
+<body class="body1">
+<div class="headunder">
+    <div class="headunder_wrap">
+        <div class="navbar-form navbar-left">
+            <a href="/home" style="color: white;font-size: 20px;text-decoration : none ">能源项目评估管理平台</a>
+        </div>
+        <div class="nav navbar-nav navbar-right" >
+            <ul class="nav navbar-nav">
+                <li id="ul" class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >账号管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li id="ul2">
+                            <a href="/passwordmanage">修改密码</a>
+                            <a th:if="${type==1}" href="/showusers">用户管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown" >
+                    <button onclick="logout()" th:unless="false" class="btn btn-danger navbar-btn" type="button">退出</button>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<h1 class="divcss5">用户管理</h1>
+<br/>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-40 column">
+
+            <div class="row">
+                <div class="divcss5">
+
+                    <div class="col-md-12">
+                        <button class="btn" onclick="showall1()">点此显示所有用户</button>
+                        <br/>
+                        <br/>
+                        <div class="panel panel-success" id="titleTwo">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"> <a> 用户列表 </a> </h4>
+                            </div>
+                            <div class="panel-body">
+                                <div id="collapseTwo" class="panel-collapse collapse in">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>编号</th>
+                                            <th>用户名</th>
+                                            <th>用户工号</th>
+                                            <th>密码</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="projectbody">
+                                        <tr>
+                                            <td><label class="divcss5-left">1</label></td>
+                                            <td id="ppname"><p id="m3" class="divcss5-left"></p></td>
+                                            <td><p id="n3" class="divcss5-left"></p></td>
+                                            <td><p id="o3" class="divcss5-left"></p></td>
+                                            <td><p id="p3" class="divcss5-left"><a id="q3" href="#" onclick="delete1()"></a><a href="#" id="r3" onclick="uplevel1()"></a></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="divcss5-left">2</label></td>
+                                            <td><p id="m4" class="divcss5-left"></p></td>
+                                            <td><p id="n4" class="divcss5-left"></p></td>
+                                            <td><p id="o4" class="divcss5-left"></p></td>
+                                            <td><p id="p4" class="divcss5-left"><a id="q4" href="#" onclick="delete2()"></a><a href="#" id="r4" onclick="uplevel2()"></a></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="divcss5-left">3</label></td>
+                                            <td><p id="m5" class="divcss5-left"></p></td>
+                                            <td><p id="n5" class="divcss5-left"></p></td>
+                                            <td><p id="o5" class="divcss5-left"></p></td>
+                                            <td><p id="p5" class="divcss5-left"><a id="q5" href="#" onclick="delete3()"></a><a href="#" id="r5" onclick="uplevel3()"></a></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="divcss5-left">4</label></td>
+                                            <td><p id="m6" class="divcss5-left"></p></td>
+                                            <td><p id="n6" class="divcss5-left"></p></td>
+                                            <td><p id="o6" class="divcss5-left"></p></td>
+                                            <td><p id="p6" class="divcss5-left"><a id="q6" href="#" onclick="delete4()"></a><a href="#" id="r6" onclick="uplevel4()"></a></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="divcss5-left">5</label></td>
+                                            <td><p id="m7" class="divcss5-left"></p></td>
+                                            <td><p id="n7" class="divcss5-left"></p></td>
+                                            <td><p id="o7" class="divcss5-left"></p></td>
+                                            <td><p id="p7" class="divcss5-left"><a id="q7" href="#" onclick="delete5()"></a><a href="#" id="r7" onclick="uplevel5()"></a></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="divcss5-left">6</label></td>
+                                            <td><p id="m8" class="divcss5-left"></p></td>
+                                            <td><p id="n8" class="divcss5-left"></p></td>
+                                            <td><p id="o8" class="divcss5-left"></p></td>
+                                            <td><p id="p8" class="divcss5-left"><a id="q8" href="#" onclick="delete6()"></a><a href="#" id="r8" onclick="uplevel6()"></a></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="divcss5-left">7</label></td>
+                                            <td><p id="m9" class="divcss5-left"></p></td>
+                                            <td><p id="n9" class="divcss5-left"></p></td>
+                                            <td><p id="o9" class="divcss5-left"></p></td>
+                                            <td><p id="p9" class="divcss5-left"><a id="q9" href="#" onclick="delete7()"></a><a id="r9" href="#" onclick="uplevel7()"></a></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="divcss5-left">8</label></td>
+                                            <td><p id="m10" class="divcss5-left"></p></td>
+                                            <td><p id="n10" class="divcss5-left"></p></td>
+                                            <td><p id="o10" class="divcss5-left"></p></td>
+                                            <td><p id="p10" class="divcss5-left"><a id="q10" href="#" onclick="delete8()"></a><a id="r10" href="#" onclick="uplevel8()"></a></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="divcss5-left">9</label></td>
+                                            <td><p id="m11" class="divcss5-left"></p></td>
+                                            <td><p id="n11" class="divcss5-left"></p></td>
+                                            <td><p id="o11" class="divcss5-left"></p></td>
+                                            <td><p id="p11" class="divcss5-left"><a id="q11" href="#" onclick="delete9()"></a><a id="r11" href="#" onclick="uplevel9()"></a></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="divcss5-left">10</label></td>
+                                            <td><p id="m12" class="divcss5-left"></p></td>
+                                            <td><p id="n12" class="divcss5-left"></p></td>
+                                            <td><p id="o12" class="divcss5-left"></p></td>
+                                            <td><p id="p12" class="divcss5-left"><a id="q12" href="#" onclick="delete10()"></a><a id="r12" href="#" onclick="uplevel10()"></a></p></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><label class="divcss5-left"></label></td>
+                                            <td><p id="m13" class="divcss5-left"></p></td>
+                                            <td><p id="n13" class="divcss5-left"></p></td>
+                                            <td><p id="o13" class="divcss5-left"></p></td>
+                                            <td>
+                                                <span>第</span>
+                                                <a href="#" onclick="showall1()">1</a>
+                                                <a href="#" onclick="showall2()">2</a>
+                                                <a href="#" onclick="showall3()">3</a>
+                                                <span>页</span></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="divcss5">
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <h2>
+            联系我们
+        </h2>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img alt="100x70" src="img/address.jpg"  width="50" height="50"/>
+                <div class="divcss5">
+
+
+                    <p>
+                        <a class="divcss5" href="http://map.baidu.com/">西安市碑林区咸宁西路28#西安交大</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img alt="100x70" src="img/phone.jpg" width="50" height="50"/>
+                <div class="divcss5">
+                    <p>
+                        <a class="divcss5">029-400-5000</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img alt="100x70" src="img/email.jpg" width="50" height="50"/>
+                <div class="divcss5">
+
+                    <p>
+                        <a class="divcss5">12345@qq.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/manage1.js}"></script>
+<script th:src="@{/js/manage2.js}"></script>
+<script th:src="@{/js/delete1.js}"></script>
+<script th:src="@{/js/showall.js}"></script>
+<script th:src="@{/js/uplevel.js}"></script>
+<script>
+    function logout() {
+        window.location.href = '/logout';
+    }
+</script>
+
+<div class="foot">
+    <div class="footer_wrap">
+        <br/>
+        <p class="divcss5" th:size="5">西安交通大学版权所有 Copyright ©2017-2022 All Rights Reserved</p>
+        <p class="divcss5">推荐使用Firefox、IE6.0以上版本浏览器</p>
+    </div>
+</div>
+</body>
+
+</html>
